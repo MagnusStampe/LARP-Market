@@ -1,0 +1,170 @@
+/*
+Variables 
+*/
+/*
+Base CSS
+*/
+* {
+  box-sizing: border-box;
+  font-family: 'Marcellus', serif; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #111; }
+
+ul, li {
+  margin: 0;
+  padding: 0; }
+
+.border_button {
+  position: relative;
+  width: 200px;
+  background-color: transparent;
+  padding: 8px 32px;
+  border: none;
+  border-radius: 0;
+  font-size: 24px;
+  color: #eee;
+  text-decoration: none;
+  text-align: center; }
+  .border_button::before, .border_button::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    pointer-events: none; }
+  .border_button::before {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #eee;
+    border-left: 2px solid #eee; }
+  .border_button::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #eee;
+    border-right: 2px solid #eee; }
+
+#content {
+  padding-top: calc(64px + 64px);
+  max-width: 1000px;
+  margin: 0 auto; }
+
+/* Font CSS */
+h1 {
+  margin: 0;
+  margin-bottom: 32px;
+  font-size: 32px;
+  color: #eee;
+  font-family: 'Cormorant SC', serif; }
+
+/*
+Components
+*/
+#main_header {
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  background-color: #333; }
+  #main_header nav {
+    display: flex;
+    margin: 16px 0 0 42px; }
+    #main_header nav .nav_button {
+      font-size: 24px;
+      color: #eee;
+      text-decoration: none;
+      font-family: 'Cormorant SC', serif;
+      margin-right: 32px; }
+      #main_header nav .nav_button.current {
+        color: #888888; }
+
+/*
+Index
+*/
+#index {
+  width: 100vw;
+  height: 100vh; }
+  #index .content_container {
+    width: 100vw;
+    z-index: 50;
+    padding-top: 64px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+  #index .logo {
+    position: relative;
+    display: block;
+    height: 45vh;
+    margin: 0 auto 64px auto; }
+  #index .centered_text {
+    margin: 0;
+    width: 100%;
+    color: #eee;
+    font-family: 'Cormorant SC', serif;
+    font-size: 42px;
+    text-align: center; }
+  #index .index_nav {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto; }
+    #index .index_nav .border_button {
+      margin: 0 32px; }
+  #index #video_container {
+    position: absolute;
+    height: calc(100vh - 64px);
+    width: 100%;
+    z-index: -1;
+    top: 64px;
+    left: 0;
+    overflow: hidden; }
+    #index #video_container::-webkit-scrollbar {
+      display: none; }
+    #index #video_container video {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 100vh;
+      width: 120vw; }
+
+/*
+Gallery
+*/
+#gallery h2 {
+  color: #eee; }
+
+#gallery #gallery_menu label {
+  color: #eee; }
+
+#gallery #gallery_menu .filters {
+  display: grid;
+  grid-template-columns: 24px 1fr; }
+
+/*
+Order
+*/
+/*
+Info
+*/
+#info .description {
+  color: #eee; }
+
+#info #subjects_container {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-gap: 32px; }
+  #info #subjects_container .sub_header {
+    margin: 0;
+    text-transform: uppercase;
+    color: #eee;
+    font-size: 18px;
+    text-align: right;
+    font-family: 'Marcellus', serif; }
+  #info #subjects_container .sub_description {
+    color: #eee; }
+
+/*
+Imports
+*/

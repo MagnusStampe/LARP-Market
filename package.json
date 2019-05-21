@@ -1,0 +1,32 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "scssToCss": "node-sass sass/main.scss css/style.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagnusStampe/LARP-Market.git"
+  },
+  "author": "Magnus Stampe Nielsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MagnusStampe/LARP-Market/issues"
+  },
+  "homepage": "https://github.com/MagnusStampe/LARP-Market#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "node-sass": "^4.12.0"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "classnames": "^2.2.6"
+  }
+}

@@ -1,0 +1,226 @@
+/*
+Variables 
+*/
+
+$primary_color: #eee;
+$secondary_color: #111;
+$font_dark: #222;
+$font_light: #eee;
+$spacing_small: 8px;
+$spacing_medium: 32px;
+$spacing_large: 64px;
+$mq_tablet: 500px;
+$mq_desktop: 1000px;
+$mq_large_desktop: 1500px;
+$fs_btn: 24px;
+
+$header_height: 64px;
+
+/*
+Base CSS
+*/
+* {
+    box-sizing: border-box;
+    font-family: 'Marcellus', serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $secondary_color;
+}
+
+ul,li {
+    margin: 0;
+    padding: 0;
+}
+
+.border_button {
+    position: relative;
+    width: 200px;
+    background-color: transparent;
+    padding: $spacing_small $spacing_medium;
+
+    border: none;
+    border-radius: 0;
+
+    font-size: $fs_btn;
+    color: $font_light;
+    text-decoration: none;
+    text-align: center;
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        pointer-events: none;
+    }
+    &::before {
+        top: 0;
+        left: 0;
+        border-top: 2px solid $font_light;
+        border-left: 2px solid $font_light;
+    }
+    &::after {
+        bottom: 0;
+        right: 0;
+        border-bottom: 2px solid $font_light;
+        border-right: 2px solid $font_light;
+    }
+}
+
+#content {
+    padding-top: calc(#{$spacing_large} + #{$header_height});
+    max-width: $mq_desktop;
+    margin: 0 auto;
+}
+
+/* Font CSS */
+h1 {
+    margin: 0;
+    margin-bottom: $spacing_medium;
+    font-size: 32px;
+    color: $font_light;
+    font-family: 'Cormorant SC', serif;
+}
+
+/*
+Components
+*/
+#main_header {
+    height: $header_height;
+    width: 100%;
+    position: fixed;
+    background-color: #333;
+    nav {
+        display: flex;
+        margin: 16px 0 0 42px;
+        
+        .nav_button {
+            font-size: 24px;
+            color: $font_light;
+            text-decoration: none;
+            font-family: 'Cormorant SC', serif;
+            margin-right: 32px;
+            &.current {
+                color: darken($font_light, 40%);
+            }
+        }
+    }
+}
+
+/*
+Index
+*/
+#index {
+    width: 100vw;
+    height: 100vh;
+    .content_container {
+        width: 100vw;
+        z-index: 50;
+        padding-top: $header_height;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .logo {
+        position: relative;
+        display: block;
+        height: 45vh;
+        margin: 0 auto $spacing_large auto;
+    }
+    .centered_text {
+        margin: 0;
+        width: 100%;
+        color: $font_light;
+        font-family: 'Cormorant SC', serif;
+        font-size: 42px;
+        text-align: center;
+    }
+    .index_nav {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        .border_button {
+            margin: 0 $spacing_medium;
+        }
+    }
+    #video_container {
+        position: absolute;
+        height: calc(100vh - #{$header_height});
+        width: 100%;
+        z-index: -1;
+        top: $header_height;
+        left: 0;
+        overflow: hidden;
+        &::-webkit-scrollbar {
+            display: none;
+          }
+        video {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            height: 100vh;
+            width: 120vw;
+        }
+    }
+}
+
+/*
+Gallery
+*/
+
+#gallery {
+    h2 {
+        color: $font_light;
+    }
+    #gallery_menu {
+        label {
+            color: $font_light;
+        }
+        .filters {
+            display: grid;
+            grid-template-columns: 24px 1fr;
+        }
+    }
+}
+
+/*
+Order
+*/
+
+/*
+Info
+*/
+#info {
+    .description {
+        color: $font_light;
+    }
+    #subjects_container {
+        margin-top: $spacing_medium;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        grid-gap: $spacing_medium;
+        .sub_header {
+            margin: 0;
+            text-transform: uppercase;
+            color: $font_light;
+            font-size: 18px;
+            text-align: right;
+            font-family: 'Marcellus', serif;
+        }
+        .sub_description {
+            color: $font_light;
+        }
+    }
+}
+
+/*
+Imports
+*/
+@import "sass/index.scss";
+@import "sass/gallery.scss";
+@import "sass/order.scss";
+@import "sass/info.scss";
