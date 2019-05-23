@@ -16,21 +16,21 @@ npx babel --watch dev_src --out-dir src --presets react-app/prod
 
 NEW REACT COMPONENTS:
 
-- Place in src folder
+- Place in dev_src/component
 - Component names in PascalCase
 
 NEW HTML FILES:
 
-- Place at .
-- Lowercase and whitespace => "-" (dash)
+- Place at root
+- lowercase and whitespace => "-" (dash)
 
 NEW SCSS FILES:
 
 - Place in sass
-- Lowercase and whitespace => "_" (underscore)
+- lowercase and whitespace => "_" (underscore)
 - Do not create CSS files, only SCSS
 
 NEW JS FILES:
 
-- Place in scripts
+- Place in dev_src/scripts
 - Names in camelCase

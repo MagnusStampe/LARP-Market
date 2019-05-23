@@ -6,9 +6,6 @@ $primary_color: #eee;
 $secondary_color: #111;
 $font_dark: #222;
 $font_light: #eee;
-$spacing_small: 8px;
-$spacing_medium: 32px;
-$spacing_large: 64px;
 $mq_tablet: 500px;
 $mq_desktop: 1000px;
 $mq_large_desktop: 1500px;
@@ -38,7 +35,7 @@ ul,li {
     position: relative;
     width: 200px;
     background-color: transparent;
-    padding: $spacing_small $spacing_medium;
+    padding: 8px 32px;
 
     border: none;
     border-radius: 0;
@@ -70,7 +67,7 @@ ul,li {
 }
 
 #content {
-    padding-top: calc(#{$spacing_large} + #{$header_height});
+    padding-top: calc(#{64px} + #{$header_height});
     max-width: $mq_desktop;
     margin: 0 auto;
 }
@@ -78,7 +75,7 @@ ul,li {
 /* Font CSS */
 h1 {
     margin: 0;
-    margin-bottom: $spacing_medium;
+    margin-bottom: 32px;
     font-size: 32px;
     color: $font_light;
     font-family: 'Cormorant SC', serif;
@@ -91,10 +88,26 @@ Components
     height: $header_height;
     width: 100%;
     position: fixed;
-    background-color: #333;
+    z-index: 100;
+    background-color: #111;
+    .header_logo {
+        background-image: url(../img/logo_white.svg);
+        background-size: cover;
+        background-position: center;
+
+        width: 300px;
+        height: $header_height;
+
+        position: absolute;
+        top: 0;
+        left: 64px;
+
+        pointer-events: none;
+        opacity: 0.1;
+    }
     nav {
         display: flex;
-        margin: 16px 0 0 42px;
+        margin: 16px 0 0 300px;
         
         .nav_button {
             font-size: 24px;
@@ -128,7 +141,7 @@ Index
         position: relative;
         display: block;
         height: 45vh;
-        margin: 0 auto $spacing_large auto;
+        margin: 0 auto 64px auto;
     }
     .centered_text {
         margin: 0;
@@ -143,7 +156,7 @@ Index
         justify-content: center;
         margin: 0 auto;
         .border_button {
-            margin: 0 $spacing_medium;
+            margin: 0 32px;
         }
     }
     #video_container {
@@ -176,13 +189,85 @@ Gallery
     h2 {
         color: $font_light;
     }
-    #gallery_menu {
-        label {
-            color: $font_light;
+    #gallery_wrapper {
+        display: flex;
+        #gallery_menu {
+            width: 200px;
+            margin-right: 16px;
+            label {
+                color: $font_light;
+            }
+            .filters {
+                display: grid;
+                grid-template-columns: 24px 1fr;
+            }
         }
-        .filters {
-            display: grid;
-            grid-template-columns: 24px 1fr;
+        #gallery_items {
+            width: 100%;
+            .items_container {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-gap: 16px;
+                position: relative;
+                .gallery_item {
+                    width: 100%;
+                    &.open {
+                        margin-bottom: 500px;
+                    }
+                    .gallery_preview img {
+                        width: 100%;
+                    }
+                    .gallery_modal {
+                        position: absolute;
+                        width: 100%;
+                        left: 0;
+                        padding-top: 16px;
+                        display: grid;
+                        grid-template-columns: calc(50% - 8px) 1fr;
+                        grid-template-rows: auto 180px auto;
+                        grid-gap: 0 16px;
+                        .current_image {
+                            position: relative;
+                            grid-area: 1 / 1 / 4 / 2;
+                            width: 100%;
+                            background-color: #000;
+                            img {
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                width: 100%;
+                            }
+                        }
+                        .headline {
+                            font-size: 32px;
+                            margin: 0;
+                            margin-bottom: 18px;
+                        }
+                        .description {
+                            font-size: 16px;
+                            color: $font_light;
+                        }
+                        .image_carousel {
+                            display: grid;
+                            grid-template-columns: repeat(4, 1fr);
+                            grid-template-rows: repeat(2, 1fr);
+                            grid-gap: 8px;
+                            grid-auto-flow: column;
+                            .carousel_item img {
+                                width: 100%;
+                            }
+                        }
+                        .underline {
+                            grid-area: 4 / 1 / 5 / 3;
+                            width: 100%;
+                            height: 2px;
+                            margin: 16px 0;
+                            background-color: #555;;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -199,10 +284,10 @@ Info
         color: $font_light;
     }
     #subjects_container {
-        margin-top: $spacing_medium;
+        margin-top: 32px;
         display: grid;
         grid-template-columns: 150px 1fr;
-        grid-gap: $spacing_medium;
+        grid-gap: 32px;
         .sub_header {
             margin: 0;
             text-transform: uppercase;

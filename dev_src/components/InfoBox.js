@@ -3,26 +3,25 @@
 const e = React.createElement;
 
 class InfoBox extends React.Component {
-    
     state = {
         json: null
     }
 
     componentDidMount() {
         fetch('https://larp-market.dk/wordpress/wp-json/acf/v3/info')
-          .then(response => response.json())
-          .then(data => this.setState({ json: data }));
-      }
+            .then(response => response.json())
+            .then(data => this.setState({ json: data }));
+    }
 
-      htmlDecode(input){
+    htmlDecode(input) {
         const e = document.createElement('div');
         e.innerHTML = input;
         console.log(e);
         return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-      }
+    }
 
     render() {
-        if(!Array.isArray(this.state.json)) {
+        if (!Array.isArray(this.state.json)) {
             return null;
         }
 

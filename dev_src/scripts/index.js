@@ -15,23 +15,15 @@ function fitVideoToScreen() {
 
     const windowMatchesVideo = 1920 / 1080
     const windowRatio = windowWidth / windowHeight;
-    
-    //If window is wider than video
-    if(windowRatio > windowMatchesVideo) {
-        console.log("wider");
-        const heightDifference = windowRatio / windowMatchesVideo;
-        videoElement.style.height = heightDifference * 100 + "vh"; 
-        
-    //If window is higher than video
-    } else {
-        console.log("thinner");
-        const widthDifference = windowMatchesVideo / windowRatio;
-        videoElement.style.width = widthDifference * 100 + "vw"; 
-    }
-}
 
-function verifyVideoIsRunning() {
-    if(document.querySelector("#video_container video").paused){
-        console.log(paused)
+    //If window is wider than video
+    if (windowRatio > windowMatchesVideo) {
+        const heightDifference = windowRatio / windowMatchesVideo;
+        videoElement.style.height = heightDifference * 100 + "vh";
+
+        //If window is higher than video
+    } else {
+        const widthDifference = windowMatchesVideo / windowRatio;
+        videoElement.style.width = widthDifference * 100 + "vw";
     }
 }

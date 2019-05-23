@@ -27,39 +27,57 @@ var Header = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            page: 'info'
+            page: ''
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Header, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var pageName = document.querySelector("body").id;
+            this.setState({ page: pageName });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var indexClasses = classnames('nav_button', this.state.page == 'index' && 'current');
             var galleryClasses = classnames('nav_button', this.state.page == 'gallery' && 'current');
             var orderClasses = classnames('nav_button', this.state.page == 'order' && 'current');
+            var pricesClasses = classnames('nav_button', this.state.page == 'prices' && 'current');
             var infoClasses = classnames('nav_button', this.state.page == 'info' && 'current');
             return React.createElement(
-                'nav',
+                'div',
                 null,
                 React.createElement(
-                    'a',
-                    { className: 'nav_button', href: 'index.html' },
-                    'Forside'
+                    'nav',
+                    null,
+                    React.createElement(
+                        'a',
+                        { className: indexClasses, href: 'index.html' },
+                        'Forside'
+                    ),
+                    React.createElement(
+                        'a',
+                        { className: galleryClasses, href: 'gallery.html' },
+                        'Galleri'
+                    ),
+                    React.createElement(
+                        'a',
+                        { className: orderClasses, href: 'order.html' },
+                        'Bestilling'
+                    ),
+                    React.createElement(
+                        'a',
+                        { className: pricesClasses, href: 'prices.html' },
+                        'Priser'
+                    ),
+                    React.createElement(
+                        'a',
+                        { className: infoClasses, href: 'info.html' },
+                        'Info'
+                    )
                 ),
-                React.createElement(
-                    'a',
-                    { className: galleryClasses, href: 'gallery.html' },
-                    'Galleri'
-                ),
-                React.createElement(
-                    'a',
-                    { className: orderClasses, href: 'order.html' },
-                    'Bestilling'
-                ),
-                React.createElement(
-                    'a',
-                    { className: infoClasses, href: 'info.html' },
-                    'Info'
-                )
+                React.createElement('div', { className: 'header_logo' })
             );
         }
     }]);
