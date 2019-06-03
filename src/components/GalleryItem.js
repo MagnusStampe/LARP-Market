@@ -27,8 +27,8 @@ var GalleryItem = function (_Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = GalleryItem.__proto__ || Object.getPrototypeOf(GalleryItem)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            isOpen: false,
-            images: null
+            images: null,
+            currentImage: _this.props.data.img1.sizes.medium_large
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -60,16 +60,21 @@ var GalleryItem = function (_Component) {
             var _this2 = this;
 
             var _state = this.state,
-                isOpen = _state.isOpen,
                 images = _state.images,
-                _props$data = this.props.data,
+                currentImage = _state.currentImage,
+                _props = this.props,
+                _onClick = _props.onClick,
+                itemID = _props.itemID,
+                openID = _props.openID,
+                _props$data = _props.data,
                 headline = _props$data.headline,
                 description = _props$data.description,
                 _props$data$img1$size = _props$data.img1.sizes,
                 largeImageSrc = _props$data$img1$size.medium_large,
                 smallImageSrc = _props$data$img1$size.thumbnail;
 
-            var galleryItemClasses = classnames('gallery_item', isOpen && 'open');
+
+            var galleryItemClasses = classnames('gallery_item', itemID === openID && 'open');
 
             return React.createElement(
                 'div',
@@ -77,17 +82,34 @@ var GalleryItem = function (_Component) {
                 React.createElement(
                     'div',
                     { className: 'gallery_preview', onClick: function onClick() {
-                            _this2.setState({ isOpen: !isOpen });
+                            _onClick();
                         } },
                     React.createElement('img', { src: smallImageSrc, alt: headline })
                 ),
-                isOpen ? React.createElement(
+                itemID === openID ? React.createElement(
                     'div',
                     { className: 'gallery_modal' },
                     React.createElement(
                         'div',
                         { className: 'current_image' },
-                        React.createElement('img', { src: largeImageSrc, alt: headline })
+                        React.createElement('img', { src: currentImage, alt: headline })
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'image_carousel' },
+                        images ? images.map(function (image) {
+                            return React.createElement(
+                                'div',
+                                {
+                                    key: image.id,
+                                    className: 'carousel_item',
+                                    onClick: function onClick() {
+                                        _this2.setState({ currentImage: image.sizes.medium_large });
+                                    } },
+                                currentImage === image.sizes.medium_large ? React.createElement('div', { className: 'overlay' }) : null,
+                                React.createElement('img', { src: image.sizes.thumbnail, alt: headline })
+                            );
+                        }) : null
                     ),
                     React.createElement(
                         'h2',
@@ -98,19 +120,7 @@ var GalleryItem = function (_Component) {
                         'div',
                         { className: 'description' },
                         description
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'image_carousel' },
-                        images ? images.map(function (image) {
-                            return React.createElement(
-                                'div',
-                                { key: image.id, className: 'carousel_item' },
-                                React.createElement('img', { src: image.sizes.thumbnail, alt: headline })
-                            );
-                        }) : null
-                    ),
-                    React.createElement('div', { className: 'underline' })
+                    )
                 ) : null
             );
         }
@@ -120,6 +130,9 @@ var GalleryItem = function (_Component) {
 }(Component);
 
 GalleryItem.propTypes = {
+    onClick: PropTypes.func,
+    itemID: PropTypes.number,
+    openID: PropTypes.number,
     data: PropTypes.shape({
         headline: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,

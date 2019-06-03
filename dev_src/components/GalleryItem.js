@@ -6,6 +6,9 @@ import classnames from 'classnames';
 
 export default class GalleryItem extends Component {
     static propTypes = {
+        onClick: PropTypes.func,
+        itemID: PropTypes.number,
+        openID: PropTypes.number,
         data: PropTypes.shape({
             headline: PropTypes.string.isRequired,
             description: PropTypes.string.isRequired,
@@ -52,8 +55,8 @@ export default class GalleryItem extends Component {
         })
     };
     state = {
-        isOpen: false,
-        images: null
+        images: null,
+        currentImage: this.props.data.img1.sizes.medium_large
     };
 
     componentWillMount() {
@@ -86,10 +89,13 @@ export default class GalleryItem extends Component {
     render() {
         const {
             state: {
-                isOpen,
-                images
+                images,
+                currentImage
             },
             props: {
+                onClick,
+                itemID,
+                openID,
                 data: {
                     headline,
                     description,
@@ -102,33 +108,41 @@ export default class GalleryItem extends Component {
                 }
             }
         } = this;
+
         const galleryItemClasses = classnames(
             'gallery_item',
-            isOpen && 'open'
+            itemID === openID && 'open'
         )
 
         return (
             <div className={galleryItemClasses}>
-                <div className="gallery_preview" onClick={() => { this.setState({ isOpen: !isOpen }) }}>
+                <div className="gallery_preview" onClick={() => { onClick() }}>
                     <img src={smallImageSrc} alt={headline} />
                 </div>
-                {isOpen ? (
+                {itemID === openID ? (
                     <div className="gallery_modal">
                         <div className="current_image">
-                            <img src={largeImageSrc} alt={headline} />
+                            <img src={currentImage} alt={headline} />
                         </div>
-                        <h2 className="headline">{headline}</h2>
-                        <div className="description">{description}</div>
                         <div className="image_carousel">
                             {images ? (
                                 images.map(image => (
-                                    <div key={image.id} className="carousel_item">
+                                    <div
+                                        key={image.id}
+                                        className="carousel_item"
+                                        onClick={() => {
+                                            this.setState({ currentImage: image.sizes.medium_large })
+                                        }}>
+                                        {currentImage === image.sizes.medium_large ? (
+                                            <div className="overlay" />
+                                        ) : null}
                                         <img src={image.sizes.thumbnail} alt={headline} />
                                     </div>
                                 ))
                             ) : null}
                         </div>
-                        <div className="underline" />
+                        <h2 className="headline">{headline}</h2>
+                        <div className="description">{description}</div>
                     </div>
                 ) : null}
             </div>

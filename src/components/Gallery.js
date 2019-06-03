@@ -8,6 +8,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 //Components
 import GalleryItem from './GalleryItem';
+import GalleryMenu from './GalleryMenu';
 import LoadSymbol from './LoadSymbol';
 
 'use strict';
@@ -29,31 +30,159 @@ var Gallery = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Gallery.__proto__ || Object.getPrototypeOf(Gallery)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            json: ''
+            json: null,
+            jsonError: false,
+            openID: null,
+            sortForNew: true,
+            filters: []
+        }, _this.searchResults = function () {
+            var sortForNew = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+            var filters = arguments[1];
+            var _this2 = _this,
+                json = _this2.state.json,
+                sortResultsForNew = _this2.sortResultsForNew,
+                sortResultsForOld = _this2.sortResultsForOld,
+                filteredResults = _this2.filteredResults;
+
+
+            var filtered = filteredResults(json, filters);
+
+            if (Array.isArray(filtered) === true) {
+                if (sortForNew) {
+                    return filtered.sort(sortResultsForNew);
+                } else {
+                    return filtered.sort(sortResultsForOld);
+                }
+            } else {
+                return filtered;
+            }
+        }, _this.sortResultsForOld = function (a, b) {
+            if (a.id < b.id) {
+                return -1;
+            }
+            if (a.id > b.id) {
+                return 1;
+            }
+            return 0;
+        }, _this.sortResultsForNew = function (a, b) {
+            if (a.id > b.id) {
+                return -1;
+            }
+            if (a.id < b.id) {
+                return 1;
+            }
+            return 0;
+        }, _this.filteredResults = function (json, filters) {
+            if (!filters[0]) {
+                return json;
+            }
+
+            var filteredResults = json.filter(function (currentItem) {
+                var matchedTags = false;
+                currentItem.acf.tags.forEach(function (item) {
+                    if (filters.includes(item)) {
+                        matchedTags = true;
+                    }
+                });
+                return matchedTags;
+            });
+
+            if (!filteredResults.length) {
+                return 'no results';
+            }
+
+            return filteredResults;
+        }, _this.handleClick = function (newID) {
+            // Open || close => item
+            if (newID === _this.state.openID) {
+                _this.setState({ openID: null });
+            } else {
+                _this.setState({ openID: newID });
+            }
+        }, _this.searchSorting = function (sorting) {
+            _this.setState({ sortForNew: sorting });
+        }, _this.searchFilters = function (filters) {
+            _this.setState({ filters: filters });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Gallery, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            var _this3 = this;
 
             fetch('https://larp-market.dk/wordpress/wp-json/acf/v3/gallery').then(function (response) {
                 return response.json();
             }).then(function (data) {
-                return _this2.setState({ json: data });
+                _this3.setState({ json: data });
+            }).catch(function () {
+                return _this3.setState({ jsonError: true });
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.state.json);
+            var _state = this.state,
+                json = _state.json,
+                jsonError = _state.jsonError,
+                openID = _state.openID,
+                sortForNew = _state.sortForNew,
+                filters = _state.filters,
+                handleClick = this.handleClick,
+                searchResults = this.searchResults,
+                searchSorting = this.searchSorting,
+                searchFilters = this.searchFilters;
+
+
             return React.createElement(
                 'div',
-                { 'class': 'items_container' },
-                Array.isArray(this.state.json) ? this.state.json.map(function (item) {
-                    return React.createElement(GalleryItem, { key: item.id, data: item.acf });
-                }) : React.createElement(LoadSymbol, null)
+                { className: 'gallery_wrapper' },
+                React.createElement(GalleryMenu, {
+                    sortCallback: searchSorting,
+                    filtersCallback: searchFilters }),
+                React.createElement(
+                    'div',
+                    { 'class': 'items_wrapper' },
+                    React.createElement(
+                        'section',
+                        { id: 'gallery_items' },
+                        Array.isArray(searchResults(sortForNew, filters)) === true && searchResults(sortForNew, filters).map(function (item) {
+                            return React.createElement(GalleryItem, {
+                                key: item.id,
+                                data: item.acf,
+                                itemID: item.id,
+                                openID: openID,
+                                filters: filters,
+                                onClick: function onClick() {
+                                    handleClick(item.id);
+                                } });
+                        }),
+                        searchResults(sortForNew, filters) === 'no results' && React.createElement(
+                            'div',
+                            { className: 'json_error' },
+                            React.createElement(
+                                'p',
+                                null,
+                                'Ingen s\xF8geresultater fundet'
+                            )
+                        ),
+                        jsonError && React.createElement(
+                            'div',
+                            { className: 'json_error' },
+                            React.createElement(
+                                'p',
+                                null,
+                                'Kunne ikke oprette forbindelse til databasen'
+                            ),
+                            React.createElement(
+                                'p',
+                                null,
+                                'Pr\xF8v venligst igen senere'
+                            )
+                        ),
+                        !jsonError && !Array.isArray(json) === true && React.createElement(LoadSymbol, null)
+                    )
+                )
             );
         }
     }]);
@@ -61,5 +190,5 @@ var Gallery = function (_React$Component) {
     return Gallery;
 }(React.Component);
 
-var domContainer = document.querySelector('#gallery_items');
+var domContainer = document.querySelector('#gallery_wrapper');
 ReactDOM.render(e(Gallery), domContainer);

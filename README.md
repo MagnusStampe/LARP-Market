@@ -34,3 +34,7 @@ NEW JS FILES:
 
 - Place in dev_src/scripts
 - Names in camelCase
+
+BEFORE SENDING TO PRODUCTION
+
+- Change React scripts react.development.js => react.production.js

@@ -27,7 +27,11 @@ var Header = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            page: ''
+            page: '',
+            expanded: false
+        }, _this.navClasses = function (navPage) {
+            var page = _this.state.page;
+            return classnames('nav_button', page === navPage && 'current');
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -40,40 +44,59 @@ var Header = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var indexClasses = classnames('nav_button', this.state.page == 'index' && 'current');
-            var galleryClasses = classnames('nav_button', this.state.page == 'gallery' && 'current');
-            var orderClasses = classnames('nav_button', this.state.page == 'order' && 'current');
-            var pricesClasses = classnames('nav_button', this.state.page == 'prices' && 'current');
-            var infoClasses = classnames('nav_button', this.state.page == 'info' && 'current');
+            var _this2 = this;
+
+            var expanded = this.state.expanded,
+                navClasses = this.navClasses;
+
+
+            var expandedClass = classnames(expanded && 'expanded');
+
             return React.createElement(
                 'div',
-                null,
+                {
+                    className: expandedClass },
+                React.createElement(
+                    'button',
+                    {
+                        id: 'burger_menu_button',
+                        onClick: function onClick() {
+                            return _this2.setState({ expanded: !_this2.state.expanded });
+                        } },
+                    React.createElement('span', null),
+                    React.createElement('span', null),
+                    React.createElement('span', null)
+                ),
+                React.createElement('div', { 'class': 'close_menu',
+                    onClick: function onClick() {
+                        return _this2.setState({ expanded: false });
+                    } }),
                 React.createElement(
                     'nav',
                     null,
                     React.createElement(
                         'a',
-                        { className: indexClasses, href: 'index.html' },
+                        { className: navClasses('index'), href: 'index.html' },
                         'Forside'
                     ),
                     React.createElement(
                         'a',
-                        { className: galleryClasses, href: 'gallery.html' },
+                        { className: navClasses('gallery'), href: 'gallery.html' },
                         'Galleri'
                     ),
                     React.createElement(
                         'a',
-                        { className: orderClasses, href: 'order.html' },
+                        { className: navClasses('order'), href: 'order.html' },
                         'Bestilling'
                     ),
                     React.createElement(
                         'a',
-                        { className: pricesClasses, href: 'prices.html' },
+                        { className: navClasses('prices'), href: 'prices.html' },
                         'Priser'
                     ),
                     React.createElement(
                         'a',
-                        { className: infoClasses, href: 'info.html' },
+                        { className: navClasses('info'), href: 'info.html' },
                         'Info'
                     )
                 ),

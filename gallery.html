@@ -14,35 +14,18 @@
     <header id="main_header"></header>
     <div id="content">
         <h1>Galleri</h1>
-
-        <div id="gallery_wrapper">
-            <section id="gallery_menu">
-                <h2>Sortér</h2>
-                <select>
-                    <option value="latestDate">Sidst tilføjet</option>
-                    <option value="oldestDate">Først tilføjet</option>
-                </select>
-                <h2>Filtre</h2>
-                <form class="filters">
-                    <input type="checkbox" class="filter_checkbox" value="latex" id="cbLatex">
-                    <label for="cbLatex">Latex</label>
-                    <input type="checkbox" class="filter_checkbox" value="leather" id="cbLeather">
-                    <label for="cbLeather">Læder</label>
-                    <input type="checkbox" class="filter_checkbox" value="wood" id="cbWood">
-                    <label for="cbWood">Træ</label>
-                    <input type="checkbox" class="filter_checkbox" value="div" id="cbDiv">
-                    <label for="cbDiv">Diverse</label>
-                </form>
-            </section>
-            <section id="gallery_items"></section>
-        </div>
+        <div id="gallery_wrapper"></div>
     </div>
+    <div id="background_image"></div>
+    <footer id="main_footer"></footer>
 
     <!-- React -->
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <!-- Components -->
     <script src="src/components/Header.js"></script>
+    <script src="src/components/Footer.js"></script>
+    <script src="src/components/BackgroundImage.js"></script>
     <script src="src/components/Gallery.js"></script>
     <!-- Additional scripts -->
 </body>

@@ -5,7 +5,8 @@ const e = React.createElement;
 
 class Header extends React.Component {
     state = {
-        page: ''
+        page: '',
+        expanded: false
     }
 
     componentWillMount() {
@@ -13,35 +14,44 @@ class Header extends React.Component {
         this.setState({ page: pageName });
     }
 
+    navClasses = navPage => {
+        const page = this.state.page;
+        return classnames(
+            'nav_button',
+            page === navPage && 'current'
+        )
+    }
+
     render() {
-        const indexClasses = classnames(
-            'nav_button',
-            this.state.page == 'index' && 'current'
-        )
-        const galleryClasses = classnames(
-            'nav_button',
-            this.state.page == 'gallery' && 'current'
-        )
-        const orderClasses = classnames(
-            'nav_button',
-            this.state.page == 'order' && 'current'
-        )
-        const pricesClasses = classnames(
-            'nav_button',
-            this.state.page == 'prices' && 'current'
-        )
-        const infoClasses = classnames(
-            'nav_button',
-            this.state.page == 'info' && 'current'
-        )
+        const {
+            state: {
+                expanded
+            },
+            navClasses
+        } = this;
+
+        const expandedClass = classnames(
+            expanded && 'expanded'
+        );
+
         return (
-            <div>
+            <div
+                className={expandedClass} >
+                <button
+                    id="burger_menu_button"
+                    onClick={() => this.setState({ expanded: !this.state.expanded })} >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="close_menu"
+                    onClick={() => this.setState({ expanded: false })} />
                 <nav>
-                    <a className={indexClasses} href="index.html">Forside</a>
-                    <a className={galleryClasses} href="gallery.html">Galleri</a>
-                    <a className={orderClasses} href="order.html">Bestilling</a>
-                    <a className={pricesClasses} href="prices.html">Priser</a>
-                    <a className={infoClasses} href="info.html">Info</a>
+                    <a className={navClasses('index')} href="index.html">Forside</a>
+                    <a className={navClasses('gallery')} href="gallery.html">Galleri</a>
+                    <a className={navClasses('order')} href="order.html">Bestilling</a>
+                    <a className={navClasses('prices')} href="prices.html">Priser</a>
+                    <a className={navClasses('info')} href="info.html">Info</a>
                 </nav>
                 <div className="header_logo"></div>
             </div>
