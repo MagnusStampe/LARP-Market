@@ -69,9 +69,7 @@ var GalleryItem = function (_Component) {
                 _props$data = _props.data,
                 headline = _props$data.headline,
                 description = _props$data.description,
-                _props$data$img1$size = _props$data.img1.sizes,
-                largeImageSrc = _props$data$img1$size.medium_large,
-                smallImageSrc = _props$data$img1$size.thumbnail;
+                smallImageSrc = _props$data.img1.sizes.thumbnail;
 
 
             var galleryItemClasses = classnames('gallery_item', itemID === openID && 'open');
@@ -116,11 +114,7 @@ var GalleryItem = function (_Component) {
                         { className: 'headline' },
                         headline
                     ),
-                    React.createElement(
-                        'div',
-                        { className: 'description' },
-                        description
-                    )
+                    React.createElement('div', { className: 'description', dangerouslySetInnerHTML: { __html: description } })
                 ) : null
             );
         }

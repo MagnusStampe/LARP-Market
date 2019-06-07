@@ -4,8 +4,7 @@ const e = React.createElement;
 class BackgroundImage extends React.Component {
     render() {
         return (
-            <div className="image">
-            </div>
+            <div className="image" />
         );
     }
 }

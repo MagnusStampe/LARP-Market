@@ -48,7 +48,7 @@ class Header extends React.Component {
                     onClick={() => this.setState({ expanded: false })} />
                 <nav>
                     <a className={navClasses('index')} href="index.html">Forside</a>
-                    <a className={navClasses('gallery')} href="gallery.html">Galleri</a>
+                    <a className={navClasses('gallery')} href="gallery.html">Portfolio</a>
                     <a className={navClasses('order')} href="order.html">Bestilling</a>
                     <a className={navClasses('prices')} href="prices.html">Priser</a>
                     <a className={navClasses('info')} href="info.html">Info</a>

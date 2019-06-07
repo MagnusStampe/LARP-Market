@@ -83,7 +83,6 @@ export default class GalleryItem extends Component {
                 images: usedImages
             });
         }
-
     }
 
     render() {
@@ -101,7 +100,6 @@ export default class GalleryItem extends Component {
                     description,
                     img1: {
                         sizes: {
-                            medium_large: largeImageSrc,
                             thumbnail: smallImageSrc
                         }
                     }
@@ -142,7 +140,7 @@ export default class GalleryItem extends Component {
                             ) : null}
                         </div>
                         <h2 className="headline">{headline}</h2>
-                        <div className="description">{description}</div>
+                        <div className="description" dangerouslySetInnerHTML={{ __html: description }} ></div>
                     </div>
                 ) : null}
             </div>

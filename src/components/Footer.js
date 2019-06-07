@@ -37,7 +37,7 @@ var Footer = function (_React$Component) {
                     React.createElement(
                         "a",
                         { href: "gallery.html" },
-                        "Galleri"
+                        "Portfolio"
                     ),
                     React.createElement(
                         "a",

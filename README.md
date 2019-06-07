@@ -30,6 +30,11 @@ NEW SCSS FILES:
 - lowercase and whitespace => "_" (underscore)
 - Do not create CSS files, only SCSS
 
+NEW REACT COMPONENTS:
+
+- Place in dev_src/component
+- Component names in PascalCase
+
 NEW JS FILES:
 
 - Place in dev_src/scripts
@@ -37,4 +42,4 @@ NEW JS FILES:
 
 BEFORE SENDING TO PRODUCTION
 
-- Change React scripts react.development.js => react.production.js
+- Change React scripts react.development.js => react.production.min.js

@@ -82,7 +82,7 @@ var Header = function (_React$Component) {
                     React.createElement(
                         'a',
                         { className: navClasses('gallery'), href: 'gallery.html' },
-                        'Galleri'
+                        'Portfolio'
                     ),
                     React.createElement(
                         'a',

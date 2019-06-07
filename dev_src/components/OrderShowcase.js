@@ -1,3 +1,5 @@
+import classnames from 'classnames';
+
 'use strict';
 
 const e = React.createElement;
@@ -57,7 +59,7 @@ class Showcase extends React.Component {
                             Vi fremstiller alle vores latex våben fra bunden. Vi bruger den bedste skum til hver enkelt produkt.
                         </p>
                         <p>
-                            Kernen består af glasfiber så vores våben er flexsible og stærke.
+                            Kernen består af glasfiber så vores våben er flexible og stærke.
                         </p>
                         <p>
                             Mulighederne er mange, vi fremstiller produktet lige som du ønsker.<br />
@@ -133,25 +135,12 @@ class Showcase extends React.Component {
             currentShowcase
         } = this.state;
 
-        switch (currentShowcase) {
-            default:
-            case 'latex':
-                return (
-                    <div className="gallery">Latex</div>
-                );
-            case 'leather':
-                return (
-                    <div className="gallery">Læder</div>
-                );
-            case 'wood':
-                return (
-                    <div className="gallery">træ</div>
-                );
-            case 'other':
-                return (
-                    <div className="gallery">Andet</div>
-                );
-        }
+        const galleryClasses = classnames(
+            "gallery",
+            currentShowcase
+        );
+
+        return <div className={galleryClasses} />
     }
 
     render() {
@@ -163,6 +152,7 @@ class Showcase extends React.Component {
 
         return (
             <div>
+                <h2>Hvad tilbyder vi?</h2>
                 {showcaseButtons}
                 <div className="content">
                     {showcaseText}

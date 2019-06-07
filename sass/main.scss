@@ -142,6 +142,9 @@ Global components
             text-decoration: none;
             font-family: 'Cormorant SC', serif;
             margin: 12px 0;
+            &:hover {
+                color: darken($light, 30%);
+            }
             &.current {
                 color: darken($light, 40%);
             }
@@ -293,19 +296,22 @@ Global components
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background-size: 100%;
-    background-repeat: no-repeat;
     .image {
+        position: absolute;
         width: 100%;
         height: 100%;
-        background: linear-gradient(-15deg, rgba(24,24,24,1) 60%, rgba(8,8,8,0.1) 80%);
+        top: 0;
+        left: 0;
+        background-position: 0 0;
+        background-size: cover;
     }
 }
-#gallery #background_image {
-    background-image: url(../img/bg_leather_back.jpg);
+
+#gallery #background_image .image {
+    background-image: url(../img/bg_gallery.jpg);
 }
 
-#order #background_image {
+#order #background_image .image {
     background-image: url(../img/bg_order.jpg);
 }
 
@@ -344,7 +350,7 @@ Index
         font-family: 'Cormorant SC', serif;
         font-size: 22px;
         text-align: center;
-        p {
+        h1,h2 {
             margin: 16px 0;
         }
     }
@@ -402,6 +408,9 @@ Gallery
         color: $light;
     }
     #gallery_wrapper .gallery_wrapper {
+        /*
+        Menu
+        */
         #gallery_menu {
             width:  100%;
             position: sticky;
@@ -453,6 +462,7 @@ Gallery
                 text-align: right;
                 font-family: 'Cormorant SC', serif;
                 font-size: 16px;
+                cursor: pointer;
                 .checkbox {
                     display: inline-block;
                     width: 24px;
@@ -482,6 +492,9 @@ Gallery
             width: 100%;
             min-height: 90vh;
         }
+        /*
+        Gallery items
+        */
         #gallery_items {
             width: 100%;
             padding: 16px;
@@ -761,18 +774,24 @@ Order
             a {
                 display: flex;
                 justify-content: left;
-                width: 390px;
+                width: 100%;
                 text-decoration: none;
                 font-size: 18px;
+                font-size: 12px;
                 margin: 16px 0;
                 padding: 1em;
                 background-color: rgba(0,0,0,0.5);
                 border: 2px solid #333;
+                &:hover {
+                    background-color: rgba(0,0,0,1);
+                    border: 2px solid #eee;
+                }
                 .some_content {
                     display: flex;
                     width: 100%;
                     img {
                         width: 36px;
+                        min-width: 36px;
                         height: 36px;
                         display: block;
                         margin: auto 1em auto 0;
@@ -832,7 +851,10 @@ Order
             min-height: 370px;
             padding: 24px;
             background: black;
+            position: relative;
             .description {
+                position: relative;
+                z-index: 2;
                 color: $light;
                 font-size: 16px;
                 p {
@@ -849,9 +871,34 @@ Order
                     list-style-type: square;
                 }
             }
+            .gallery {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.4;
+                background-size: cover;
+                background-position: center;
+                &.latex {
+                    background-image: url(../img/order_latex.jpg);
+                }
+                &.leather {
+                    background-image: url(../img/order_leather.jpg);
+                }
+                &.wood {
+                    background-image: url(../img/order_wood.jpg);
+                }
+                &.other {
+                    background-image: url(../img/order_other.jpg);
+                }
+            }
         }
     }
     @media only screen and (min-width: $break_small) and (max-width: $break_medium) {
+        #order_contact .some a {
+            font-size: 18px;
+        }
         #order_showcase {
             .showcase_nav button {
                 display: inline-block;
@@ -864,11 +911,15 @@ Order
     @media only screen and (min-width: $break_medium) {
         #order_contact {
             grid-column: span 1;
+            .some a {
+                font-size: 18px;
+                width: calc(100% - 32px);
+            }
         }
         #order_advice {
             grid-column: span 1;
             border-left: 2px solid #555;
-            padding-left: 64px;
+            padding-left: 48px;
         }
         #order_showcase {
             .showcase_nav button {
@@ -1117,11 +1168,3 @@ Info
         }
     }
 }
-
-/*
-Imports
-*/
-@import "sass/index.scss";
-@import "sass/gallery.scss";
-@import "sass/order.scss";
-@import "sass/info.scss";

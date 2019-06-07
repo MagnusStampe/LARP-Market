@@ -7,6 +7,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 //Components
+
+//###
+//# EKSTRA KOMMENTARER
+//# ALT MED //# FORAN SLETTES INDEN PRODUCTION
+//###
+
+//# Hent andre komponenter eller udvidelser
 import GalleryItem from './GalleryItem';
 import GalleryMenu from './GalleryMenu';
 import LoadSymbol from './LoadSymbol';
@@ -14,6 +21,8 @@ import LoadSymbol from './LoadSymbol';
 'use strict';
 
 var e = React.createElement;
+
+//# Selve React komponentet
 
 var Gallery = function (_React$Component) {
     _inherits(Gallery, _React$Component);
@@ -35,9 +44,19 @@ var Gallery = function (_React$Component) {
             openID: null,
             sortForNew: true,
             filters: []
+
+            //# Dette er en lifecycle method.
+            //# componentDidMount() er et navn React kender.
+            //# Denne her aktiverer selv når komponentet er loaded færdig
+            //# Der er mange forskellige af disse.
+            //# Den her er den eneste der bliver bruge gennem dette projekt.
         }, _this.searchResults = function () {
             var sortForNew = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
             var filters = arguments[1];
+
+            //# Destructuring. En del af vanilla Javascript, men bruges
+            //# ofte i React til at definere variabler der bruges sådan her.
+            //# Sådan undgå man at skulle skrive "this.state.json". Istedet skriver man "json"
             var _this2 = _this,
                 json = _this2.state.json,
                 sortResultsForNew = _this2.sortResultsForNew,
@@ -105,6 +124,9 @@ var Gallery = function (_React$Component) {
             _this.setState({ filters: filters });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+    //# State er en af det vigtigste værktøjer i React.
+    //# State kan ændres i koden. Ændre state sig opdateres komponentet
+
 
     _createClass(Gallery, [{
         key: 'componentDidMount',
@@ -114,13 +136,26 @@ var Gallery = function (_React$Component) {
             fetch('https://larp-market.dk/wordpress/wp-json/acf/v3/gallery').then(function (response) {
                 return response.json();
             }).then(function (data) {
+                //# Her ændres state. Når .fetch() er færdig ændres state og komponentet opdateres
                 _this3.setState({ json: data });
-            }).catch(function () {
+            })
+            //# .catch() håndtere fejl hvis der sker en fejl i .fetch()
+            .catch(function () {
                 return _this3.setState({ jsonError: true });
             });
         }
+
+        //# Bruges som en normal function
+
+
+        //# Normal sorterings function
+
     }, {
         key: 'render',
+
+
+        //# Her kan man lave variabler og teknisk set functioner selvom de bør være uden for render()
+        //# return værdien er det som renderes på hjemmesiden.
         value: function render() {
             var _state = this.state,
                 json = _state.json,
@@ -147,15 +182,20 @@ var Gallery = function (_React$Component) {
                         'section',
                         { id: 'gallery_items' },
                         Array.isArray(searchResults(sortForNew, filters)) === true && searchResults(sortForNew, filters).map(function (item) {
-                            return React.createElement(GalleryItem, {
-                                key: item.id,
-                                data: item.acf,
-                                itemID: item.id,
-                                openID: openID,
-                                filters: filters,
-                                onClick: function onClick() {
-                                    handleClick(item.id);
-                                } });
+                            return (
+                                //# værdierne der gives vidre kan bruges i GalleryItem komponentet
+                                //# De definere props.
+                                //# Props fungere på samme måde som state, men man omdefinere ikke props.
+                                React.createElement(GalleryItem, {
+                                    key: item.id,
+                                    data: item.acf,
+                                    itemID: item.id,
+                                    openID: openID,
+                                    filters: filters,
+                                    onClick: function onClick() {
+                                        handleClick(item.id);
+                                    } })
+                            );
                         }),
                         searchResults(sortForNew, filters) === 'no results' && React.createElement(
                             'div',
@@ -189,6 +229,11 @@ var Gallery = function (_React$Component) {
 
     return Gallery;
 }(React.Component);
+
+//# Her indsættes komponentet.
+//# Er komponentet inde i et andet komponent ville man skrive "export default" hvor class laves.
+//# Der kan også være flere komponenter i et script. Dertil ville man kun skrive default ved ét komponent
+
 
 var domContainer = document.querySelector('#gallery_wrapper');
 ReactDOM.render(e(Gallery), domContainer);

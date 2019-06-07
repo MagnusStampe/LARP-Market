@@ -8,7 +8,7 @@ class Footer extends React.Component {
                 <div className="footer_logo" />
                 <nav className="nav_pages">
                     <a href="index.html">Forside</a>
-                    <a href="gallery.html">Galleri</a>
+                    <a href="gallery.html">Portfolio</a>
                     <a href="order.html">Bestilling</a>
                     <a href="prices.html">Priser</a>
                     <a href="info.html">Info</a>
